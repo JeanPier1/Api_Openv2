@@ -3,7 +3,7 @@
 from flask import Flask
 from flask_restful import Api
 from .middlewares.conecction import initialize_db
-from .routes.routehome import initialize_routes, services_cv
+from .routes.routehome import initialize_routes
 
 app = Flask(__name__)
 api = Api(app)
@@ -20,4 +20,3 @@ except Exception as error:
 
 # Routes - directions
 initialize_routes(api)
-services_cv(api)

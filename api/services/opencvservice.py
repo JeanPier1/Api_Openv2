@@ -4,6 +4,8 @@ import os
 import imutils
 from flask_restful import Resource
 from flask import Response, request
+import matplotlib.pyplot as plt
+import time
 
 
 class CapturandoRostros(Resource):
@@ -20,46 +22,51 @@ class CapturandoRostros(Resource):
         if not os.path.exists(personPath):
             print('Carpeta creada: ', personPath)
             os.makedirs(personPath)
-        cap = cv2.VideoCapture(0)  # cv2.CAP_DSHOW  / cv2.CAP_V4L2
-        # cap = cv2.VideoCapture(
-        #     '/home/jeanpier/Documentos/project/IA/prueba/videos/SELF INTRODUCTION 1 MINUTE (how to introduce yourself).mp4')
+        try:
+            cap = cv2.VideoCapture(0)  # cv2.CAP_DSHOW  / cv2.CAP_V4L2
+            # cap = cv2.VideoCapture(
+            #     '/home/jeanpier/Documentos/project/IA/prueba/videos/SELF INTRODUCTION 1 MINUTE (how to introduce yourself).mp4')
 
-        faceClassif = cv2.CascadeClassifier(
-            cv2.data.haarcascades+'haarcascade_frontalface_default.xml')
-        count = 0
-        while True:
-            ret, frame = cap.read()
-            if ret == False:
-                break
-            frame = imutils.resize(frame, width=640)
-            gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
-            auxFrame = frame.copy()
+            faceClassif = cv2.CascadeClassifier(
+                cv2.data.haarcascades+'haarcascade_frontalface_default.xml')
+            count = 0
+            while True:
+                ret, frame = cap.read()
+                if ret == False:
+                    break
+                frame = imutils.resize(frame, width=640)
+                gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+                auxFrame = frame.copy()
 
-            faces = faceClassif.detectMultiScale(gray, 1.3, 5)
-            for (x, y, w, h) in faces:
-                cv2.rectangle(frame, (x, y), (x+w, y+h), (0, 255, 0), 2)
-                rostro = auxFrame[y:y+h, x:x+w]
-                rostro = cv2.resize(rostro, (150, 150),
-                                    interpolation=cv2.INTER_CUBIC)
-                cv2.imwrite(
-                    personPath + '/rotro_{}.jpg'.format(count), rostro)
-                count = count + 1
-            cv2.imshow('frame', frame)
+                faces = faceClassif.detectMultiScale(gray, 1.3, 5)
+                for (x, y, w, h) in faces:
+                    cv2.rectangle(frame, (x, y), (x+w, y+h), (0, 255, 0), 2)
+                    rostro = auxFrame[y:y+h, x:x+w]
+                    rostro = cv2.resize(rostro, (150, 150),
+                                        interpolation=cv2.INTER_CUBIC)
+                    cv2.imwrite(
+                        personPath + '/rotro_{}.jpg'.format(count), rostro)
+                    count = count + 1
+                cv2.imshow('frame', frame)
 
-            k = cv2.waitKey(27)
-            if k == 233 or count >= 300:    # Esc key to stop
-                break
-            elif k == -1:  # normally -1 returned,so don't print it
-                continue
-            else:
-                print(k)  # else print its value
-            # if k == 27 or count >= 300:
-            #     break
-        cap.release()
-        cv2.destroyAllWindows()
+                k = cv2.waitKey(27)
+                if k == 233 or count >= 300:    # Esc key to stop
+                    break
+                elif k == -1:  # normally -1 returned,so don't print it
+                    continue
+                else:
+                    print(k)  # else print its value
+                # if k == 27 or count >= 300:
+                #     break
+                time.sleep(300)
+            cap.release()
+            cv2.destroyAllWindows()
 
-        entrenandoRostro()
-        return "ok", 200
+            entrenandoRostro()
+            return "ok", 200
+        except Exception as e:
+            print(e)
+            return "error", 500
 
 
 class entrenandoRostro(Resource):
@@ -123,67 +130,79 @@ class reconocimientoFacial(Resource):
         # face_recognizer.read('modeloFisherFace.xml')
         # face_recognizer.read('modeloLBPHFace.xml')
 
-        cap = cv2.VideoCapture(-1, cv2.CAP_V4L2)  # cv2.CAP_DSHOW
-        # cap = cv2.VideoCapture(
-        #     '/home/jeanpier/Documentos/project/IA/prueba/videos/SELF INTRODUCTION 1 MINUTE (how to introduce yourself).mp4')
+        try:
+            def verificacion():
+                cap = cv2.VideoCapture(0)  # cv2.CAP_DSHOW # cv2.CAP_V4L2
+                # cap = cv2.VideoCapture(
+                #     '/home/jeanpier/Documentos/project/IA/prueba/videos/SELF INTRODUCTION 1 MINUTE (how to introduce yourself).mp4')
 
-        faceClassif = cv2.CascadeClassifier(
-            cv2.data.haarcascades+'haarcascade_frontalface_default.xml')
+                faceClassif = cv2.CascadeClassifier(
+                    cv2.data.haarcascades+'haarcascade_frontalface_default.xml')
 
-        cv2.startWindowThread()
-        # variables
-        cpt = 0
-        while True:
-            ret, vista = cap.read()
-            if ret == False:
-                break
-            gray = cv2.cvtColor(vista, cv2.COLOR_BGR2GRAY)
-            auxFrame = gray.copy()
+                # cv2.startWindowThread()
+                # variables
+                cpt = 0
+                while (cap.isOpened()):
+                    ret, vista = cap.read()
+                    if ret == False:
+                        break
+                    gray = cv2.cvtColor(vista, cv2.COLOR_BGR2GRAY)
+                    auxFrame = gray.copy()
 
-            faces = faceClassif.detectMultiScale(gray, 1.3, 5)
+                    faces = faceClassif.detectMultiScale(gray, 1.3, 5)
 
-            for (x, y, w, h) in faces:
-                rostro = auxFrame[y:y+h, x:x+w]
-                rostro = cv2.resize(rostro, (150, 150),
-                                    interpolation=cv2.INTER_CUBIC)
-                result = face_recognizer.predict(rostro)
+                    for (x, y, w, h) in faces:
+                        rostro = auxFrame[y:y+h, x:x+w]
+                        rostro = cv2.resize(rostro, (150, 150),
+                                            interpolation=cv2.INTER_CUBIC)
+                        result = face_recognizer.predict(rostro)
 
-                cv2.putText(vista, '{}'.format(result), (x, y-5),
-                            1, 1.3, (255, 255, 0), 1, cv2.LINE_AA)
+                        cv2.putText(vista, '{}'.format(result), (x, y-5),
+                                    1, 1.3, (255, 255, 0), 1, cv2.LINE_AA)
 
-                # EigenFaces
-                if result[1] < 5700:
-                    cv2.putText(vista, '{}'.format(
-                        imagePaths[result[0]]), (x, y-25), 2, 1.1, (0, 255, 0), 1, cv2.LINE_AA)
-                    cv2.rectangle(vista, (x, y), (x+w, y+h), (0, 255, 0), 2)
-                else:
-                    cv2.putText(vista, 'Desconocido', (x, y-20), 2,
-                                0.8, (0, 0, 255), 1, cv2.LINE_AA)
-                    cv2.rectangle(vista, (x, y), (x+w, y+h), (0, 0, 255), 2)
-                '''
-                # FisherFace
-                if result[1] < 500:
-                    cv2.putText(frame,'{}'.format(imagePaths[result[0]]),(x,y-25),2,1.1,(0,255,0),1,cv2.LINE_AA)
-                    cv2.rectangle(frame, (x,y),(x+w,y+h),(0,255,0),2)
-                else:
-                    cv2.putText(frame,'Desconocido',(x,y-20),2,0.8,(0,0,255),1,cv2.LINE_AA)
-                    cv2.rectangle(frame, (x,y),(x+w,y+h),(0,0,255),2)
-                '''
-                # LBPHFace
-                # if result[1] < 70:
-                # 	cv2.putText(frame,'{}'.format(imagePaths[result[0]]),(x,y-25),2,1.1,(0,255,0),1,cv2.LINE_AA)
-                # 	cv2.rectangle(frame, (x,y),(x+w,y+h),(0,255,0),2)
-                # else:
-                # 	cv2.putText(frame,'Desconocido',(x,y-20),2,0.8,(0,0,255),1,cv2.LINE_AA)
-                # 	cv2.rectangle(frame, (x,y),(x+w,y+h),(0,0,255),2)
+                        # EigenFaces
+                        if result[1] < 5700:
+                            cv2.putText(vista, '{}'.format(
+                                imagePaths[result[0]]), (x, y-25), 2, 1.1, (0, 255, 0), 1, cv2.LINE_AA)
+                            cv2.rectangle(vista, (x, y), (x+w, y+h),
+                                          (0, 255, 0), 2)
+                        else:
+                            cv2.putText(vista, 'Desconocido', (x, y-20), 2,
+                                        0.8, (0, 0, 255), 1, cv2.LINE_AA)
+                            cv2.rectangle(vista, (x, y), (x+w, y+h),
+                                          (0, 0, 255), 2)
+                        '''
+                        # FisherFace
+                        if result[1] < 500:
+                            cv2.putText(frame,'{}'.format(imagePaths[result[0]]),(x,y-25),2,1.1,(0,255,0),1,cv2.LINE_AA)
+                            cv2.rectangle(frame, (x,y),(x+w,y+h),(0,255,0),2)
+                        else:
+                            cv2.putText(frame,'Desconocido',(x,y-20),2,0.8,(0,0,255),1,cv2.LINE_AA)
+                            cv2.rectangle(frame, (x,y),(x+w,y+h),(0,0,255),2)
+                        '''
+                        # LBPHFace
+                        # if result[1] < 70:
+                        # 	cv2.putText(frame,'{}'.format(imagePaths[result[0]]),(x,y-25),2,1.1,(0,255,0),1,cv2.LINE_AA)
+                        # 	cv2.rectangle(frame, (x,y),(x+w,y+h),(0,255,0),2)
+                        # else:
+                        # 	cv2.putText(frame,'Desconocido',(x,y-20),2,0.8,(0,0,255),1,cv2.LINE_AA)
+                        # 	cv2.rectangle(frame, (x,y),(x+w,y+h),(0,0,255),2)
 
-            cpt = cpt + 1
-            cv2.namedWindow('vista')  # cv2.WINDOW_NORMAL)
-            cv2.imshow('vista', vista)
-            k = cv2.waitKey(27)
-          #  print(cap.isOpened()) - no aprueba
-            if k == 27 or cpt == timeseconds:
-                break
-        cap.release()
-        cv2.destroyAllWindows()
-        return "ok", 200
+                    cpt = cpt + 1
+                    # cv2.namedWindow('vista')  # cv2.WINDOW_NORMAL)
+                    cv2.imshow('vista', vista)
+                    k = cv2.waitKey(1)
+                #  print(cap.isOpened()) - no aprueba
+                    if k == ord("q"):  # or cpt == timeseconds:
+
+                        cv2.destroyWindow("vista")
+                        break
+                cap.release()
+                cv2.destroyAllWindows()
+                plt.show()
+                # time.sleep(k)
+            verificacion()
+            return "ok", 200
+        except cv2.error as e:
+            print("[Error]: {}".format(error))
+            return "error", 500

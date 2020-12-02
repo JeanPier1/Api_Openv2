@@ -131,6 +131,6 @@ dmypy.json
 # xml
 api/services/modeloEigenFace.xml
 api/services/haarcascade_frontalface_default.xml
-
+api/data/
 #code
 .vscode/
