@@ -1,4 +1,4 @@
-from middlewares.conecction import db
+from api.middlewares.conecction import db
 
 
 class ReporteIA(db.Document):
