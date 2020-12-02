@@ -199,7 +199,6 @@ class reconocimientoFacial(Resource):
                         break
                 cap.release()
                 cv2.destroyAllWindows()
-                plt.show()
                 # time.sleep(k)
             verificacion()
             return "ok", 200
