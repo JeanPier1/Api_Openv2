@@ -192,12 +192,14 @@ class reconocimientoFacial(Resource):
                     # cv2.namedWindow('vista')  # cv2.WINDOW_NORMAL)
                     cv2.imshow('vista', vista)
                     k = cv2.waitKey(1)
-                #  print(cap.isOpened()) - no aprueba
-                    if k == ord("q"):  # or cpt == timeseconds:
-
+                    #  print(cap.isOpened()) - no aprueba
+                    # or cpt == timeseconds:
+                    if k == ord("q") or cpt == timeseconds:
                         cv2.destroyWindow("vista")
+                        print("Hello")
                         break
                 cap.release()
+                print("q23")
                 cv2.destroyAllWindows()
                 # time.sleep(k)
             verificacion()

@@ -1,4 +1,4 @@
-from flask import Response, request
+from flask import Response, request, jsonify, json
 from flask_jwt_extended import create_access_token
 from flask_restful import Resource
 import datetime
@@ -40,6 +40,7 @@ class LoginApi(Resource):
                 return errors['UnauthorizedError']
 
             expires = datetime.timedelta(days=7)
+            # print(str(user.roles))
             access_token = create_access_token(
                 identity=str(user.id), expires_delta=expires)
             return {'token': access_token}, 200
@@ -78,3 +79,9 @@ class RoleApi(Resource):
     # def delete(self, id):
     #     Role.objects.get(id=id).delete()
     #     return '',200
+
+# SELECT ca1.id_padre as id1, t2.nombre as cate1
+# FROM categorias as ca1
+# INNER join (select min(categorias_id) as id2, id_padre as padre2 from #categorias group by id_padre) AS t22
+# ON ca1.categorias_id=id2  and padre2=ca1.id_padre
+# INNER JOIN categorias AS  t2 ON ca1.id_padre=t2.categorias_id
