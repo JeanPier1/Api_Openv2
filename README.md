@@ -20,5 +20,5 @@ Solucion
 
 Creditos:
 
-Edson
+Edson y
 Abdiel
