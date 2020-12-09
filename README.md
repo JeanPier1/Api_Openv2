@@ -17,3 +17,8 @@ Solucion
 
 - pip uninstall opencv-contrib-python
 - pip install opencv-contrib-python
+
+Creditos:
+
+Edson
+Abdiel
