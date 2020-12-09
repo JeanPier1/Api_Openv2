@@ -1,6 +1,6 @@
 # Services
 
-from api.services.opencvservice import CapturandoRostros, reconocimientoFacial
+# from api.services.opencvservice import CapturandoRostros, reconocimientoFacial
 
 # Controller
 from api.controllers.cursocontroller import CursoApi, CursosApi
@@ -15,8 +15,8 @@ from api.controllers.recursocontroller import RecursoApi, RecursosApi
 def initialize_routes(api):
     # Solo ia
 
-    api.add_resource(CapturandoRostros, '/api/cv')
-    api.add_resource(reconocimientoFacial, '/api/cv/reconocimiento')
+    # api.add_resource(CapturandoRostros, '/api/cv')
+    # api.add_resource(reconocimientoFacial, '/api/cv/reconocimiento')
 
     # Curso
     api.add_resource(CursosApi, '/api/cursos')

@@ -1,5 +1,5 @@
 again==1.2.21
-aniso8601==8.0.0
+aniso8601==8.1.0
 astroid==2.4.2
 autopep8==1.5.4
 bcrypt==3.2.0
@@ -12,10 +12,11 @@ Flask==1.1.2
 Flask-Bcrypt==0.7.1
 Flask-JWT-Extended==3.25.0
 flask-mongoengine==1.0.0
-Flask-PyMongo==2.3.0
 Flask-RESTful==0.3.8
 Flask-WTF==0.14.3
+from==0.1.0
 idna==2.10
+import==0.0.1
 imutils==0.5.3
 isort==5.6.4
 itsdangerous==1.1.0
@@ -28,13 +29,12 @@ mccabe==0.6.1
 mongoengine==0.21.0
 numpy==1.19.4
 opencv-contrib-python==4.4.0.46
-opencv-python==4.4.0.46
 Pillow==8.0.1
 pycodestyle==2.6.0
 pycparser==2.20
 PyJWT==1.7.1
 pylint==2.6.0
-pymongo==3.11.1
+pymongo==3.11.2
 pyparsing==2.4.7
 python-dateutil==2.8.1
 pytz==2020.4

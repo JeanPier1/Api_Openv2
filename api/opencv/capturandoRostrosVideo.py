@@ -4,16 +4,16 @@ import imutils
 
 personName = 'Ariana'
 # Cambia a la ruta donde hayas almacenado Data
-dataPath = '/home/jeanpier/Documentos/project/IA/prueba/datav2'
+dataPath = '/home/jeanpier/Documentos/project/IA/Project/api/data'
 personPath = dataPath + '/' + personName
 
 if not os.path.exists(personPath):
     print('Carpeta creada: ', personPath)
     os.makedirs(personPath)
 
-# cap = cv2.VideoCapture(0)  # cv2.CAP_DSHOW
-cap = cv2.VideoCapture(
-    '/home/jeanpier/Documentos/project/IA/prueba/videos/SELF INTRODUCTION 1 MINUTE (how to introduce yourself).mp4')
+cap = cv2.VideoCapture(0)  # cv2.CAP_DSHOW
+# cap = cv2.VideoCapture(
+#     '/home/jeanpier/Documentos/project/IA/prueba/videos/SELF INTRODUCTION 1 MINUTE (how to introduce yourself).mp4')
 
 faceClassif = cv2.CascadeClassifier(
     cv2.data.haarcascades+'haarcascade_frontalface_default.xml')
