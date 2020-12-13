@@ -1,10 +1,10 @@
 # PROJECTO Eduvi
 
-\Creditos a Edson , Abdiel , Cesar
+Creditos a Edson , Abdiel , Cesar
 
 ## COMENZAMOS
 
-\Ejecutar
+Ejecutar
 
 ```
 python3 -m venv env

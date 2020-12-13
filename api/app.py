@@ -10,7 +10,7 @@ import os
 # Clases Opencv
 from .services.opencvservice_reconocimiento import reconocimientofc, Recursos
 from .services.opencvservice_recopilacion import recopilacion
-
+from .middlewares.arreglo import alumnos
 
 # Security
 from flask_bcrypt import Bcrypt
@@ -50,25 +50,6 @@ except Exception as error:
     print(error)
 
 # Template
-
-
-# def gen(camera):
-#     while True:
-#         data = camera.get_frame()
-#         frame = data[0]
-#         yield (b'--frame\r\n'
-#                b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n\r\n')
-
-
-# @app.route('/')
-# def index():
-#     """Video streaming home page."""
-#     return render_template('index.html')
-
-@jwt_required
-@app.route('/video_feed/<int:cod>/<string:nom>')
-def video_feed(cod, nom):
-    return Response(Recursos(cod, nom), mimetype='multipart/x-mixed-replace; boundary=frame')
 
 
 @app.route('/video_recono/<int:tiempo>/')
@@ -122,17 +103,24 @@ def main():
 
 
 @app.route("/tiempo", methods=['POST'])
+@jwt_required
 def tiempo_a():
     body = request.get_json()
     tiempo = body['tiempo']
-    return tiempo
+    return '{}'.format(tiempo)
 
 
 @app.route("/datos", methods=['POST'])
+@jwt_required
 def datos_a():
     body = request.get_json()
-    print(body)
-    return body
+    nombre = body['nombre']
+    codigo = body['codigo_uni']
+
+    for i in range(0, len(alumnos)):
+        if(alumnos[i]['nombre'] == nombre and alumnos[i]['codigo_uni'] == codigo):
+            return body
+    return {}, 200
 
 
 # Routes - directions
