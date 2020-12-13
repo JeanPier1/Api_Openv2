@@ -2,6 +2,7 @@ import cv2
 import os
 import imutils
 import numpy as np
+from pathlib import Path
 
 
 def recopilacion(cod, nom):
@@ -9,7 +10,8 @@ def recopilacion(cod, nom):
     codigo_universitario = cod
     personName = "{}-{}".format(nombre, codigo_universitario)
     # Cambia a la ruta donde hayas almacenado Data
-    dataPath = '/home/jeanpier/Documentos/project/IA/FaceRecognition/Live-Streaming-using-OpenCV-Flask/data'
+    dataPath = '{}/api/data'.format(Path.cwd())
+
     personPath = dataPath + '/' + personName
 
     if not os.path.exists(personPath):
@@ -60,7 +62,7 @@ def recopilacion(cod, nom):
 
 
 def entrenandoRostro():
-    dataPath = '/home/jeanpier/Documentos/project/IA/FaceRecognition/Live-Streaming-using-OpenCV-Flask/data'
+    dataPath = '{}/api/data'.format(Path.cwd())
     peopleList = os.listdir(dataPath)
     print('Lista de personas: ', peopleList)
 

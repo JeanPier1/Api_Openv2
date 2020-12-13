@@ -46,9 +46,9 @@ def initialize_routes(api):
 
     # salida de persona
 
-    api.add_resource(PersonasApi, '/api/module')
-    api.add_resource(PersonaApi, '/api/module/<id>')
+    api.add_resource(PersonasApi, '/api/persona')
+    api.add_resource(PersonaApi, '/api/persona/<id>')
 
     # salida de recurso
-    api.add_resource(RecursosApi, '/api/module')
-    api.add_resource(RecursoApi, '/api/module/<id>')
+    api.add_resource(RecursosApi, '/api/recurso')
+    api.add_resource(RecursoApi, '/api/recurso/<id>')

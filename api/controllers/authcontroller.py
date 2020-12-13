@@ -39,7 +39,7 @@ class LoginApi(Resource):
             if not authorized:
                 return errors['UnauthorizedError']
 
-            expires = datetime.timedelta(days=7)
+            expires = datetime.timedelta(days=0, seconds=10000)
             # print(str(user.roles))
             access_token = create_access_token(
                 identity=str(user.id), expires_delta=expires)

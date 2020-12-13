@@ -2,6 +2,7 @@ from flask import Flask, render_template, Response, request
 import cv2
 import os
 import numpy as np
+from pathlib import Path
 
 
 def Recursos(cod, nom):
@@ -29,7 +30,7 @@ def Recursos(cod, nom):
 def reconocimientofc(tiempo):
 
     timeseconds = tiempo
-    dataPath = '/home/jeanpier/Documentos/project/IA/FaceRecognition/Live-Streaming-using-OpenCV-Flask/data'
+    dataPath = '{}/api/data'.format(Path.cwd())
 
     imagePaths = os.listdir(dataPath)
     print('imagePaths=', imagePaths)
