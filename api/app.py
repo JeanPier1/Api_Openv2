@@ -2,15 +2,15 @@
 
 from flask import Flask, render_template, Response, url_for, redirect, request
 from flask_restful import Api
-from .middlewares.conecction import initialize_db
-from .routes.routehome import initialize_routes
+from middllewares.conecction import initialize_db
+from routes.routehome import initialize_routes
 import os
 
 
 # Clases Opencv
-from .services.opencvservice_reconocimiento import reconocimientofc, Recursos
-from .services.opencvservice_recopilacion import recopilacion
-from .middlewares.arreglo import alumnos
+from services.opencvservice_reconocimiento import reconocimientofc, Recursos
+from services.opencvservice_recopilacion import recopilacion
+from middllewares.arreglo import alumnos
 
 # Security
 from flask_bcrypt import Bcrypt
@@ -42,7 +42,8 @@ jwt = JWTManager(app)
 try:
     # creation of MongoClient
     app.config['MONGODB_SETTINGS'] = {
-        "host": "mongodb://localhost/eduvi_nsql_test"
+        # "host": "mongodb://localhost/eduvi_nsql_test"
+        "host": "mongodb://mymongoeduvi:27017/eduvi_nsql"
     }
     initialize_db(app)
 except Exception as error:

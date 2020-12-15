@@ -3,12 +3,12 @@ from flask_jwt_extended import create_access_token
 from flask_restful import Resource
 import datetime
 
-from api.models.user import User
-from api.models.role import Role
+from models.user import User
+from models.role import Role
 
 # class
 
-from api.services.errors import errors, UnauthorizedError
+from services.errors import errors, UnauthorizedError
 from mongoengine.errors import FieldDoesNotExist, NotUniqueError, DoesNotExist
 
 

@@ -1,5 +1,5 @@
-from api.middlewares.conecction import db
-from api.models.role import Role
+from middllewares.conecction import db
+from models.role import Role
 from flask_bcrypt import generate_password_hash, check_password_hash
 
 

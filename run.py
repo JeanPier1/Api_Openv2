@@ -1,6 +1,6 @@
 from os import environ
 import os
-from api.app import app
+from app import app
 
 
 # def suppress_qt_warnings():
@@ -13,5 +13,4 @@ from api.app import app
 
 
 if __name__ == "__main__":
-    port = os.environ.get("PORT") or 5000
-    app.run(port=port, debug=True)
+    app.run(debug=True, port=5001, host='0.0.0.0')

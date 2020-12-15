@@ -1,4 +1,4 @@
-from api.middlewares.conecction import db
+from middllewares.conecction import db
 
 
 class Persona(db.Document):

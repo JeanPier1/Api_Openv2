@@ -30,7 +30,7 @@ def Recursos(cod, nom):
 def reconocimientofc(tiempo):
 
     timeseconds = tiempo
-    dataPath = '{}/api/data'.format(Path.cwd())
+    dataPath = '{}/data'.format(Path.cwd())
 
     imagePaths = os.listdir(dataPath)
     print('imagePaths=', imagePaths)
@@ -40,7 +40,7 @@ def reconocimientofc(tiempo):
     #face_recognizer = cv2.face.LBPHFaceRecognizer_create()
 
     # Leyendo el modelo
-    face_recognizer.read('api/services/modeloEigenFace.xml')
+    face_recognizer.read('services/modeloEigenFace.xml')
     # face_recognizer.read('modeloFisherFace.xml')
     # face_recognizer.read('modeloLBPHFace.xml')
 
@@ -99,9 +99,10 @@ def reconocimientofc(tiempo):
         frame = buffer.tobytes()
         yield (b'--frame\r\n'
                b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')
-        k = cv2.waitKey(1)
+       # k = cv2.waitKey(1)
         cpt = cpt+1
-        if k == ord("q") or cpt == timeseconds:
+        if cpt == timeseconds:
             break
+
     cap.release()
     cv2.destroyAllWindows()

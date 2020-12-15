@@ -3,7 +3,7 @@ from flask_jwt_extended import jwt_required, get_jwt_identity
 from flask_restful import Resource
 
 
-from api.models.persona import Persona
+from models.persona import Persona
 
 
 class PersonasApi(Resource):

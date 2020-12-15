@@ -10,7 +10,7 @@ def recopilacion(cod, nom):
     codigo_universitario = cod
     personName = "{}-{}".format(nombre, codigo_universitario)
     # Cambia a la ruta donde hayas almacenado Data
-    dataPath = '{}/api/data'.format(Path.cwd())
+    dataPath = '{}/data'.format(Path.cwd())
 
     personPath = dataPath + '/' + personName
 
@@ -18,8 +18,6 @@ def recopilacion(cod, nom):
         os.makedirs(personPath)
 
     cap = cv2.VideoCapture(0)  # cv2.CAP_DSHOW
-    # cap = cv2.VideoCapture(
-    #     '/home/jeanpier/Documentos/project/IA/prueba/videos/SELF INTRODUCTION 1 MINUTE (how to introduce yourself).mp4')
 
     faceClassif = cv2.CascadeClassifier(
         cv2.data.haarcascades+'haarcascade_frontalface_default.xml')
@@ -48,18 +46,16 @@ def recopilacion(cod, nom):
         yield (b'--frame\r\n'
                b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')
 
-        k = cv2.waitKey(1)
-        if k == 27 or count >= 300:
+        if count >= 300:
             break
 
     cap.release()
-    cv2.destroyAllWindows()
     # Esperara
     entrenandoRostro()
 
 
 def entrenandoRostro():
-    dataPath = '{}/api/data'.format(Path.cwd())
+    dataPath = '{}/data'.format(Path.cwd())
     peopleList = os.listdir(dataPath)
 
     labels = []
@@ -83,7 +79,7 @@ def entrenandoRostro():
     face_recognizer.train(facesData, np.array(labels))
 
     # Almacenando el modelo obtenido
-    face_recognizer.write('api/services/modeloEigenFace.xml')
+    face_recognizer.write('services/modeloEigenFace.xml')
     # face_recognizer.write('modeloFisherFace.xml')
     # face_recognizer.write('modeloLBPHFace.xml')
     print("Modelo almacenado...")

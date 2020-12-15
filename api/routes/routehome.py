@@ -3,13 +3,13 @@
 # from api.services.opencvservice import CapturandoRostros, reconocimientoFacial
 
 # Controller
-from api.controllers.cursocontroller import CursoApi, CursosApi
-from api.controllers.authcontroller import SignupApi, LoginApi, RoleApi, RolesApi
-from api.controllers.examencontroller import ExamenApi, ExamenesApi
-from api.controllers.institucioncontroller import InstitucionApi, InstitucionesApi
-from api.controllers.modulecontroller import ModuleApi, ModulesApi
-from api.controllers.personacontroller import PersonaApi, PersonasApi
-from api.controllers.recursocontroller import RecursoApi, RecursosApi
+from controllers.cursocontroller import CursoApi, CursosApi
+from controllers.authcontroller import SignupApi, LoginApi, RoleApi, RolesApi
+from controllers.examencontroller import ExamenApi, ExamenesApi
+from controllers.institucioncontroller import InstitucionApi, InstitucionesApi
+from controllers.modulecontroller import ModuleApi, ModulesApi
+from controllers.personacontroller import PersonaApi, PersonasApi
+from controllers.recursocontroller import RecursoApi, RecursosApi
 
 
 def initialize_routes(api):
